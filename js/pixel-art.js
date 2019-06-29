@@ -56,6 +56,18 @@ function generarGrilla() {
   }
 };
 
+function indicadorColor() {
+  
+};
+
+
+
+
+
+
+
+
+
 $(document).ready(iniciar());
 
 function iniciar() {
