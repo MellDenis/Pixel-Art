@@ -64,11 +64,12 @@ function indicadorColor() {
    });
 };
 
-function pintarPixel(color) {
-  $("#grilla-pixeles div").click(function(){
-    $(this).css("background-color", color);
-  });
+function pintarPixel(e) {
+  e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
+  paleta.addEventListener("click",pintarPixel);
 }
+
+
 
 
 
