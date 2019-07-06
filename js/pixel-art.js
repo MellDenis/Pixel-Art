@@ -66,7 +66,7 @@ function indicadorColor() {
 
 function pintarPixel(e) {
   e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
-  paleta.addEventListener("click",pintarPixel);
+  paleta.addEventListener("click",pintarPixel);//no
 }
 
 
