@@ -57,10 +57,18 @@ function generarGrilla() {
 };
 
 function indicadorColor() {
-  
+  $("div").click(function(){
+    //var $color = $(this).css("background-color");
+    //console.log($color);
+    $("#indicador-de-color").css("background-color" ,$(this).css("background-color"));
+   });
 };
 
-
+function pintarPixel(color) {
+  $("#grilla-pixeles div").click(function(){
+    $(this).css("background-color", color);
+  });
+}
 
 
 
@@ -73,5 +81,7 @@ $(document).ready(iniciar());
 function iniciar() {
   generarPaleta();
   generarGrilla();
+  indicadorColor();
+  pintarPixel(indicadorColor());
 };
 
