@@ -32,8 +32,7 @@ colorPersonalizado.addEventListener('change',
     // Se guarda el color de la rueda en colorActual
     colorActual = colorPersonalizado.value;
     // Completar para que cambie el indicador-de-color al colorActual
-
-
+    colorPersonalizado.css("background-color",colorActual);
   })
 );
 
@@ -57,17 +56,23 @@ function generarGrilla() {
 };
 
 function indicadorColor() {
-  $("div").click(function(){
+  $(".color-paleta").click(function(){
     //var $color = $(this).css("background-color");
     //console.log($color);
     $("#indicador-de-color").css("background-color" ,$(this).css("background-color"));
    });
 };
 
-function pintarPixel(e) {
-  e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
-  paleta.addEventListener("click",pintarPixel);//no
+function pintarGrilla() {
+  grilla.addEventListener("click",pintarPixel);
+
+  function pintarPixel(e) {
+    e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
+  }
+  
+
 }
+
 
 
 
@@ -83,6 +88,6 @@ function iniciar() {
   generarPaleta();
   generarGrilla();
   indicadorColor();
-  pintarPixel(indicadorColor());
+  pintarGrilla();
 };
 
