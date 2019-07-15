@@ -25,6 +25,7 @@ var nombreColores = ['White', 'LightYellow',
 var colorPersonalizado = document.getElementById('color-personalizado');
 var paleta = document.getElementById("paleta");
 var grilla = document.getElementById("grilla-pixeles");
+var estadoClick = false; 
 
 
 //Genera la paleta de colores que se agregara a la section 
@@ -55,18 +56,18 @@ function indicadorColor() {
    });
 };
 
-//Se pinta por pixel de la grilla
-function pintarPixel(e) {
-  e.target.style.backgroundColor = $("#indicador-de-color").css("background-color"); 
-    
-};
-
 grilla.addEventListener("mousedown",clickStatus);
 grilla.addEventListener("mouseup", clickStatus);
 grilla.addEventListener("click",pintarPixel);
 
+//Se pinta por pixel de la grilla
+function pintarPixel(e) {
+  if (estadoClick) {
+    e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
+  }
+};
+
 function clickStatus(e) {
-  let estadoClick;
   if (e.type === "mousedown") {
     pintarPixel();
     estadoClick = true;
