@@ -27,16 +27,7 @@ var paleta = document.getElementById("paleta");
 var grilla = document.getElementById("grilla-pixeles");
 
 
-colorPersonalizado.addEventListener('change', 
-  (function() {
-    // Se guarda el color de la rueda en colorActual
-    colorActual = colorPersonalizado.value;
-    // Completar para que cambie el indicador-de-color al colorActual
-    colorPersonalizado.css("background-color",colorActual);
-  })
-);
-
-//Generaa la paleta de colores que se agregara a la section 
+//Genera la paleta de colores que se agregara a la section 
 function generarPaleta() {
   for (let i = 0; i < nombreColores.length; i++) {
       let color = nombreColores[i];
@@ -55,6 +46,7 @@ function generarGrilla() {
   }
 };
 
+//Indicador de color de la paleta
 function indicadorColor() {
   $(".color-paleta").click(function(){
     //var $color = $(this).css("background-color");
@@ -63,15 +55,38 @@ function indicadorColor() {
    });
 };
 
-function pintarGrilla() {
-  grilla.addEventListener("click",pintarPixel);
+//Se pinta por pixel de la grilla
+function pintarPixel(e) {
+  e.target.style.backgroundColor = $("#indicador-de-color").css("background-color"); 
+    
+};
 
-  function pintarPixel(e) {
-    e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
-  }
-  
+grilla.addEventListener("mousedown",clickStatus);
+grilla.addEventListener("mouseup", clickStatus);
+grilla.addEventListener("click",pintarPixel);
 
-}
+function clickStatus(e) {
+  let estadoClick;
+  if (e.type === "mousedown") {
+    pintarPixel();
+    estadoClick = true;
+    console.log("apretado");
+    
+  } ;
+  if (e.type === "mouseup") {
+    estadoClick = false;
+    console.log("noapretado");
+  };
+};
+
+colorPersonalizado.addEventListener('change', 
+  (function(e) {
+    // Se guarda el color de la rueda en colorActual
+     colorActual = colorPersonalizado.value;
+    // El indicador-de-color al colorActual
+    e.target.style.backgroundColor = $("#indicador-de-color").css("background-color",colorActual);
+  })
+);
 
 
 
@@ -88,6 +103,6 @@ function iniciar() {
   generarPaleta();
   generarGrilla();
   indicadorColor();
-  pintarGrilla();
+  //pintarPixel();
 };
 
