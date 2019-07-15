@@ -65,7 +65,7 @@ grilla.addEventListener("mousedown",clickStatus);
 grilla.addEventListener("mouseup", clickStatus);
 grilla.addEventListener("click",pintarPixel);
 
-function click(e) {
+function clickStatus(e) {
   let estadoClick;
   if (e.type === "mousedown") {
     pintarPixel();
