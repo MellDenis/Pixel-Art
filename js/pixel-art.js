@@ -25,11 +25,12 @@ var nombreColores = ['White', 'LightYellow',
 var colorPersonalizado = document.getElementById('color-personalizado');
 var paleta = document.getElementById("paleta");
 var grilla = document.getElementById("grilla-pixeles");
+var btnBorrar = document.getElementById("borrar");
 var estadoClick = false; 
 
 
 //Genera la paleta de colores que se agregara a la section 
-function generarPaleta() {
+function createPalette() {
   for (let i = 0; i < nombreColores.length; i++) {
       let color = nombreColores[i];
       var cuadro = document.createElement("div");
@@ -40,7 +41,7 @@ function generarPaleta() {
 };
 
 //Genera el panel donde se dibujara
-function generarGrilla() {
+function createGrid() {
   for (let i = 0; i < 1751; i++) {
     let pixel = document.createElement("div");
     grilla.appendChild(pixel);
@@ -48,7 +49,7 @@ function generarGrilla() {
 };
 
 //Indicador de color de la paleta
-function indicadorColor() {
+function indicatorColor() {
   $(".color-paleta").click(function(){
     //var $color = $(this).css("background-color");
     //console.log($color);
@@ -58,28 +59,37 @@ function indicadorColor() {
 
 grilla.addEventListener("mousedown",clickStatus);
 grilla.addEventListener("mouseup", clickStatus);
-grilla.addEventListener("click",pintarPixel);
+grilla.addEventListener("mouseover",paintPincel);
+grilla.addEventListener("click",paintPixel);
+btnBorrar.addEventListener("click",cleanAll);
 
 //Se pinta por pixel de la grilla
-function pintarPixel(e) {
+function paintPixel(e) {
+    e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
+};
+
+//Se pinta en la grilla como si fuera un pincel
+function paintPincel(e) {
+  //Si el mouse esta presionado
   if (estadoClick) {
     e.target.style.backgroundColor = $("#indicador-de-color").css("background-color");
   }
 };
 
+//Verifico si click derecho del mouse esta presionado o no
 function clickStatus(e) {
   if (e.type === "mousedown") {
-    pintarPixel();
     estadoClick = true;
-    console.log("apretado");
+    //console.log("apretado");
     
   } ;
   if (e.type === "mouseup") {
     estadoClick = false;
-    console.log("noapretado");
+    //console.log("noapretado");
   };
 };
 
+//Color seleccionado desde la rueda de colores
 colorPersonalizado.addEventListener('change', 
   (function(e) {
     // Se guarda el color de la rueda en colorActual
@@ -89,11 +99,31 @@ colorPersonalizado.addEventListener('change',
   })
 );
 
+//Nos permite borrar toda la grilla
+function cleanAll() {
+  //Guardo todos los div de le grilla, que serian los pixeles
+  let $pixeles = $("#grilla-pixeles").children();
+  //console.log($pixeles.length);
+  //Por cada pixel le cambio el fondo a blanco
+  $pixeles.each(function(){
+    $(this).animate({backgroundColor: "#ffffff"},"slow");
+  });
+};
 
+//Cargamos la imagen del superheroe que se elija
+function loadSuperhero() {
+  $("ul img").click(function () {
+    //Guardo el atributo id para identificar que heroe cargar
+    let $hero = $(this).attr("id");
+    cargarSuperheroe(window[$hero]);
+  });
+};
 
-
-
-
+function saveHero() {
+  $("#guardar").click(function() {
+    guardarPixelArt();
+  });
+};
 
 
 
@@ -101,9 +131,10 @@ colorPersonalizado.addEventListener('change',
 $(document).ready(iniciar());
 
 function iniciar() {
-  generarPaleta();
-  generarGrilla();
-  indicadorColor();
-  //pintarPixel();
+  createPalette();
+  createGrid();
+  indicatorColor();
+  loadSuperhero();
+  saveHero();
 };
 
